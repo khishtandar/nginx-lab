@@ -1,0 +1,44 @@
+TASK 1
+
+Nodes A/B/C/D
+
+Install Nginx on all nodes using the nginxinc.nginx_core Ansible collection or your preferred package manager.
+Disable the firewall and SElinux, and then restart the system.
+
+
+Task 2
+
+Nodes A/B/C
+
+TASK 2.1 Create the /usr/share/nginx/html/download directory and add three text files to it.
+TASK 2.2 Install httpd-tools and create a user/pass database file using htpasswd.
+TASK 2.3 Configure the static web servers and serve a sample web page on each server using the demo Jinja HTML template from the nginx_core (https://galaxy.ansible.com/nginxinc/nginx_core).
+- Create a /download location and enable auto-indexing.
+- Configure basic authentication for the download directory.
+- Configure server-side compression using the gzip directive to compress the data being sent to clients.
+- Set cache control headers to enable caching of the static content on nodes A/B/C.
+
+Node D
+
+TASK 3.1 Create a self-signed certificate.
+TASK 3.2 Configure Nginx as a load balancer on Node D using the upstream module to balance traffic between nodes A and B:
+- Use the hash load balancing method.
+- Configure a worker_connections value of 1024.
+- Configure a worker_processes value of 1.
+- Configure keepalive requests of 30 and a keepalive_timeout of 64s.
+- Configure Node C as a backup upstream server for nodes A and B.
+- Configure passive health checks for Nodes A and B with a max fail count of 2 and a fail timeout of 20.
+- Restrict access to only private IP ranges.
+- Configure server-side compression using the gzip directive to compress the data being sent to clients.
+- Set up access logging using the log_format directive to specify the log format and the access_log directive to specify the log file.
+- Set up event logging using the error_log directive to specify the log file and level.
+- Enable SSL termination on Node D for client connections.
+- Redirect HTTP traffic to HTTPS and enable HSTS to ensure that all future requests are made over HTTPS.
+- Configure rate limiting (10 requests per second).
+- Configure proxy caching using the "myCache" zone.
+- Add a header to indicate whether the request was served from cache.
+- Add X-Forwarded-For (XFF) header to see the actual client IP address in the upstream servers.
+
+Node D
+
+Task 4 Install GoAccess on Node D and analyze the access logs using that tool.
